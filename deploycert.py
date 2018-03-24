@@ -10,7 +10,7 @@ class InitService(object):
     """ A classic init.d system - /etc/init.d/<service> (start|stop|restart)"""
     _service_string = "/etc/init.d/{0} {1}"
 
-    def __init__(self, service_name: str, timeout: int = 2):
+    def __init__(self, service_name: str, timeout: int = 10):
         """
         :param service_name: the service name, i.e. apache, bind...
         :type service_name: stre

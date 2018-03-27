@@ -3,7 +3,7 @@
 import collections, logging, subprocess, shutil, os, tempfile
 
 # logger used in this module
-logger = None
+logger = logging.getLogger()
 
 
 class InitService(object):
@@ -104,8 +104,7 @@ def executor(domainlist: list, domain2service: dict, finaljob: object = None) ->
         if service is not None:
             # service might be a tuple or a list - when multiple services are using the same domain
             if isinstance(service, collections.Iterable):
-                for singleservice in service:
-                    joblist.append(singleservice)
+                joblist.extend(service)
             else:
                 joblist.append(service)
 

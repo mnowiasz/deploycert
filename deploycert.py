@@ -1,6 +1,10 @@
 """ Restarts the services using the given certificates """
 
-import collections, logging, subprocess, shutil, os, tempfile
+import collections
+import logging
+import shutil
+import subprocess
+import tempfile
 
 # logger used in this module
 logger = logging.getLogger()
@@ -182,6 +186,24 @@ def update_quassel(service: object, path: str, destination: str = "/var/lib/quas
     return doit
 
 
+# Just copy the files, no need to restart the service
+def update_synapse(path: str, destination: str) -> object:
+    """
 
+    :param path: Source path of the certificate in questing
+    :type path: str
+    :param destination: Synapse's installation (/home.../.synapse/)
+    :type destination: str
+    :return: Closure
+    :rtype: object
+    """
 
+    def doit():
+        filenames = ("privkey.pem", "fullchain.pem")
 
+        logger.info("Copying %s to %s", filenames, destination)
+
+        for file in filenames:
+            safe_copy(path + "/" + file, destination + "/" + file)
+
+    return doit
